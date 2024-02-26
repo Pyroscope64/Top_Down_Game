@@ -38,15 +38,14 @@ namespace Top_Down_Game
 
             _collision.X = (int)_position.X;
             _collision.Y = (int)_position.Y;
-            _collision.Width = TILE_SIZE + 50;
-            _collision.Height = TILE_SIZE + 50;
+            _collision.Width = TILE_SIZE;
+            _collision.Height = TILE_SIZE;
 
             Solid = solid;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, _position, _rectangle, White);
-            if (Solid) spriteBatch.Draw(_texture, new Vector2(_collision.X, _collision.Y), _rectangle, Blue);
         }
     }
 }

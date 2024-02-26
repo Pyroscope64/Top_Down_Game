@@ -92,30 +92,30 @@ namespace Top_Down_Game
 
             foreach (Tile tile in _tiles.Where(tile => tile.Solid))
             {
-                if (_position.X + _velocity.X < tile.Collision.X + Tile.TILE_SIZE &&
-                    _position.X > tile.Collision.X + 15 &&
-                    _position.Y > tile.Collision.Y && _position.Y < tile.Collision.Y + Tile.TILE_SIZE)
+                if (_position.X + _velocity.X < tile.Collision.X + Tile.TILE_SIZE + _texture.Width &&
+                    _position.X > tile.Collision.X + 1 &&
+                    _position.Y > tile.Collision.Y && _position.Y < tile.Collision.Y + Tile.TILE_SIZE + _texture.Height)
                 {
-                    _velocity.X = -(_position.X - (tile.Collision.X + Tile.TILE_SIZE));
+                    _velocity.X = -(_position.X - (tile.Collision.X + Tile.TILE_SIZE + _texture.Width));
                 }
 
                 if (_position.X + _velocity.X > tile.Collision.X &&
-                    _position.X < tile.Collision.X + Tile.TILE_SIZE - 15 &&
-                    _position.Y > tile.Collision.Y && _position.Y < tile.Collision.Y + Tile.TILE_SIZE)
+                    _position.X < tile.Collision.X + Tile.TILE_SIZE - 1 &&
+                    _position.Y > tile.Collision.Y && _position.Y < tile.Collision.Y + Tile.TILE_SIZE + _texture.Height)
                 {
                     _velocity.X = tile.Collision.X - _position.X;
                 }
 
-                if (_position.Y + _velocity.Y < tile.Collision.Y + Tile.TILE_SIZE &&
-                    _position.Y > tile.Collision.Y + 15 &&
-                    _position.X > tile.Collision.X && _position.X < tile.Collision.X + Tile.TILE_SIZE)
+                if (_position.Y + _velocity.Y < tile.Collision.Y + Tile.TILE_SIZE + _texture.Height &&
+                    _position.Y > tile.Collision.Y + 1 &&
+                    _position.X > tile.Collision.X && _position.X < tile.Collision.X + Tile.TILE_SIZE + _texture.Width)
                 {
-                    _velocity.Y = -(_position.Y - (tile.Collision.Y + Tile.TILE_SIZE));
+                    _velocity.Y = -(_position.Y - (tile.Collision.Y + Tile.TILE_SIZE + _texture.Height));
                 }
 
                 if (_position.Y + _velocity.Y > tile.Collision.Y &&
-                    _position.Y < tile.Collision.Y + Tile.TILE_SIZE - 15 &&
-                    _position.X > tile.Collision.X && _position.X < tile.Collision.X + Tile.TILE_SIZE)
+                    _position.Y < tile.Collision.Y + Tile.TILE_SIZE - 1 &&
+                    _position.X > tile.Collision.X && _position.X < tile.Collision.X + Tile.TILE_SIZE + _texture.Width)
                 {
                     _velocity.Y = tile.Collision.Y - _position.Y;
                 }
@@ -126,23 +126,19 @@ namespace Top_Down_Game
             if (_position.X < playerX)
             {
                 _velocity.X = _movementSpeed;
-                // ObstacleCollision(_movementSpeed, 0);
             }
             else if (_position.X > playerX)
             {
                 _velocity.X = -_movementSpeed;
-                // ObstacleCollision(-_movementSpeed, 0);
             }
 
             if (_position.Y < playerY)
             {
                 _velocity.Y = _movementSpeed;
-                // ObstacleCollision(0, _movementSpeed);
             }
             else if (_position.Y > playerY)
             {
                 _velocity.Y = -_movementSpeed;
-                // ObstacleCollision(0, -_movementSpeed);
             }
         }
         public void Draw(SpriteBatch spriteBatch)
@@ -151,7 +147,6 @@ namespace Top_Down_Game
             DrawPos.X = _collision.X;
             DrawPos.Y = _collision.Y;
             spriteBatch.Draw(_texture, DrawPos, _rectangle, Color.White);
-            spriteBatch.Draw(_texture, new Vector2(_collision.X, _collision.Y), _rectangle, Color.Blue);
         }
     }
 }

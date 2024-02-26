@@ -11,8 +11,8 @@ namespace Top_Down_Game
         private GameState _currentState; // Current state that the game is in
         private GameState _nextState; // The next state that the game will be in
 
-        public const int WINDOW_WIDTH = 1920; // Width of the game window
-        public const int WINDOW_HEIGHT = 1080; // Height of the game window
+        public const int WINDOW_WIDTH = 1500; // Width of the game window
+        public const int WINDOW_HEIGHT = 900; // Height of the game window
 
         public Color _background; // A global variable to set the background of the screen in any game state
         public void ChangeState(GameState state) => _nextState = state; // ! Call this whenever the game state changes, e.g. Main Menu to InPlay

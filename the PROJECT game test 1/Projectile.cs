@@ -101,7 +101,6 @@ namespace Top_Down_Game
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, _position, _rectangle, White);
-            spriteBatch.Draw(_texture, new Vector2(_collision.X, _collision.Y), _rectangle, Blue);
         }
     }
 }

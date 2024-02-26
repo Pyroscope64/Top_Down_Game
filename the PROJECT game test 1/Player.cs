@@ -120,7 +120,6 @@ namespace Top_Down_Game
         {
             _npc.Draw(spriteBatch);
             spriteBatch.Draw(_texture, _position, _source, _colour, _rotation, _origin, _scale, _effects, 0); // Draws the player
-            // spriteBatch.Draw(_texture, new Vector2(_collision.X - _halfWidth, _collision.Y - _halfHeight), _source, _colour, _rotation, _origin, _scale, _effects, 0); // Draws the player
             spriteBatch.Draw(_healthBar, _healthBarPosition, _healthBarRectangle, White); // Draws the health bar
             spriteBatch.DrawString(_font, $"{Math.Floor(_hp)}/{_maxHP}", _healthBarPosition, White); // Draws the current HP and the Max HP together
             foreach (Projectile p in _projectiles) // Draws the current projectiles
