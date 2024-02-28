@@ -6,6 +6,7 @@ using System.Linq;
 using static System.IO.File;
 using static Top_Down_Game.EnemyType;
 using static Top_Down_Game.Map;
+using static Top_Down_Game.Tile;
 
 namespace Top_Down_Game
 {
@@ -85,42 +86,73 @@ namespace Top_Down_Game
         private void GetVelocity()
         {
             if (_position.X + _velocity.X < 0) _velocity.X = -_position.X;
-            else if (_position.X + _velocity.X > MAP_SIZE * Tile.TILE_SIZE) _velocity.X = MAP_SIZE * Tile.TILE_SIZE - _position.X;
+            else if (_position.X + _velocity.X > MAP_SIZE * TILE_SIZE) _velocity.X = MAP_SIZE * TILE_SIZE - _position.X;
 
             if (_position.Y + _velocity.Y < 0) _velocity.Y = -_position.Y;
-            else if (_position.Y + _velocity.Y > MAP_SIZE * Tile.TILE_SIZE) _velocity.Y = MAP_SIZE * Tile.TILE_SIZE - _position.Y;
+            else if (_position.Y + _velocity.Y > MAP_SIZE * TILE_SIZE) _velocity.Y = MAP_SIZE * TILE_SIZE - _position.Y;
 
             foreach (Tile tile in _tiles.Where(tile => tile.Solid))
             {
-                if (_position.X + _velocity.X < tile.Collision.X + Tile.TILE_SIZE + _texture.Width &&
+                if (_position.X + _velocity.X < tile.Collision.X + TILE_SIZE + _texture.Width &&
                     _position.X > tile.Collision.X + 1 &&
-                    _position.Y > tile.Collision.Y && _position.Y < tile.Collision.Y + Tile.TILE_SIZE + _texture.Height)
+                    _position.Y > tile.Collision.Y && _position.Y < tile.Collision.Y + TILE_SIZE + _texture.Height)
                 {
-                    _velocity.X = -(_position.X - (tile.Collision.X + Tile.TILE_SIZE + _texture.Width));
+                    _velocity.X = -(_position.X - (tile.Collision.X + TILE_SIZE + _texture.Width));
                 }
 
                 if (_position.X + _velocity.X > tile.Collision.X &&
-                    _position.X < tile.Collision.X + Tile.TILE_SIZE - 1 &&
-                    _position.Y > tile.Collision.Y && _position.Y < tile.Collision.Y + Tile.TILE_SIZE + _texture.Height)
+                    _position.X < tile.Collision.X + TILE_SIZE - 1 &&
+                    _position.Y > tile.Collision.Y && _position.Y < tile.Collision.Y + TILE_SIZE + _texture.Height)
                 {
                     _velocity.X = tile.Collision.X - _position.X;
                 }
 
-                if (_position.Y + _velocity.Y < tile.Collision.Y + Tile.TILE_SIZE + _texture.Height &&
+                if (_position.Y + _velocity.Y < tile.Collision.Y + TILE_SIZE + _texture.Height &&
                     _position.Y > tile.Collision.Y + 1 &&
-                    _position.X > tile.Collision.X && _position.X < tile.Collision.X + Tile.TILE_SIZE + _texture.Width)
+                    _position.X > tile.Collision.X && _position.X < tile.Collision.X + TILE_SIZE + _texture.Width)
                 {
-                    _velocity.Y = -(_position.Y - (tile.Collision.Y + Tile.TILE_SIZE + _texture.Height));
+                    _velocity.Y = -(_position.Y - (tile.Collision.Y + TILE_SIZE + _texture.Height));
                 }
 
                 if (_position.Y + _velocity.Y > tile.Collision.Y &&
-                    _position.Y < tile.Collision.Y + Tile.TILE_SIZE - 1 &&
-                    _position.X > tile.Collision.X && _position.X < tile.Collision.X + Tile.TILE_SIZE + _texture.Width)
+                    _position.Y < tile.Collision.Y + TILE_SIZE - 1 &&
+                    _position.X > tile.Collision.X && _position.X < tile.Collision.X + TILE_SIZE + _texture.Width)
                 {
                     _velocity.Y = tile.Collision.Y - _position.Y;
                 }
             }
+
+            foreach (Enemy enemy in OtherEnemies) // when close to other enemy it jerks back a certain distance
+            {
+                if (_position.X + _velocity.X < enemy.Collision.X + _texture.Width * 2 && // if where we are in the next second 
+                    _position.X > enemy.Collision.X + 1 &&
+                    _position.Y > enemy.Collision.Y && _position.Y < enemy.Collision.Y + _texture.Height * 2)
+                {
+                    _velocity.X = 0;
+                }
+
+                if (_position.X + _velocity.X > enemy.Collision.X &&
+                    _position.X < enemy.Collision.X + _texture.Width * 2 - 1 &&
+                    _position.Y > enemy.Collision.Y && _position.Y < enemy.Collision.Y + _texture.Height * 2)
+                {
+                    _velocity.X = 0;
+                }
+
+                if (_position.Y + _velocity.Y < enemy.Collision.Y + _texture.Height * 2 &&
+                    _position.Y > enemy.Collision.Y + 1 &&
+                    _position.X > enemy.Collision.X && _position.X < enemy.Collision.X + _texture.Width * 2)
+                {
+                    _velocity.Y = 0;
+                }
+
+                if (_position.Y + _velocity.Y > enemy.Collision.Y &&
+                    _position.Y < enemy.Collision.Y + _texture.Height * 2 - 1 &&
+                    _position.X > enemy.Collision.X && _position.X < enemy.Collision.X + _texture.Width * 2)
+                {
+                    _velocity.Y = 0;
+                }
         }
+            }
         public void PathFind(int playerX, int playerY)
         {
             if (_position.X < playerX)

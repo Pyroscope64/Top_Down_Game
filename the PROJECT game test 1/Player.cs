@@ -19,6 +19,8 @@ namespace Top_Down_Game
 {
     internal class Player : Sprite
     {
+        private const int KILL_OBJECTIVE = 15;
+
         private Map _map;
 
         private ContentManager _content;
@@ -110,6 +112,13 @@ namespace Top_Down_Game
             IfInWater();
             GetInputs(); // Gets the current inputs
             UpdateProjectiles();
+            
+            if (_kills == KILL_OBJECTIVE)
+            {
+                _kills = 0;
+                _questComplete = true;
+            }
+
             if (_hp < _maxHP) _hp += 0.05;
 
             base.Update();

@@ -99,7 +99,10 @@ namespace Top_Down_Game
                 for (int i = 0; i < _enemies.Count; i++)
                 {
                     Enemy enemy = _enemies[i];
-                    enemy.OtherEnemies = _enemies;
+                    foreach (Enemy enemy2 in _enemies)
+                    {
+                        enemy.OtherEnemies.Add(enemy2);
+                    }
                     enemy.OtherEnemies.Remove(enemy);
                 }
             }
@@ -115,9 +118,9 @@ namespace Top_Down_Game
         {
             if (_enemies.Count > 0)
             {
-                foreach (Enemy enemy in _enemies)
+                for (int i = 0; i < _enemies.Count; i++)
                 {
-                    enemy.Update((int)_player.Position.X, (int)_player.Position.Y); // ! FIX PLS to show baba
+                    _enemies[i].Update((int)_player.Position.X, (int)_player.Position.Y);
                 }
             }
 
