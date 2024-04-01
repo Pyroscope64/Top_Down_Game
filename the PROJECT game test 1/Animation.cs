@@ -4,7 +4,7 @@ using static System.Math;
 
 namespace Top_Down_Game
 {
-    internal class Animation
+    public class Animation
     {
         private List<Rectangle> _sources;
         private bool _loop;

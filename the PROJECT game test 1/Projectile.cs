@@ -90,6 +90,7 @@ namespace Top_Down_Game
                         if (enemy.HP <= 0)
                         {
                             KilledEnemy = true;
+                            enemy.Dead = true;
                         }
                     }
                 }

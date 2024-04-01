@@ -48,4 +48,15 @@ namespace Top_Down_Game
             spriteBatch.Draw(_texture, _position, _rectangle, White);
         }
     }
+    enum TileType
+    {
+        Forest,
+        Tree,
+        Mountain,
+        Rock,
+        Wetland,
+        WaterRock,
+        Hotlands,
+        LavaRock
+    }
 }

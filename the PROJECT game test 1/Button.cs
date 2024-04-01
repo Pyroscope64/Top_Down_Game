@@ -10,29 +10,23 @@ namespace Top_Down_Game
 {
     public class Button : Component
     {
-        #region Fields
         private MouseState _currentMouse;
         private SpriteFont _spriteFont;
         private bool _isHovering;
         private MouseState _previousMouse;
         private Texture2D _texture;
-        #endregion
-        #region Properties
         public event EventHandler Click;
         public bool Clicked { get; private set; }
         public Color PenColour { get; set; }
         public Vector2 Position { get; set; }
         public Rectangle Rectangle => new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
         public string Text { get; set; }
-        #endregion
-        #region Methods
         public Button(Texture2D texture, SpriteFont spriteFont)
         {
             _texture = texture;
             _spriteFont = spriteFont;
             PenColour = Black;
         }
-        #endregion
         public override void Draw(SpriteBatch spriteBatch)
         {
             var colour = White;

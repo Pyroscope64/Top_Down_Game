@@ -9,23 +9,20 @@ using static Microsoft.Xna.Framework.Color;
 
 namespace Top_Down_Game
 {
-    internal class Sprite
+    public class Sprite
     {
         protected Texture2D _texture;
         protected Point _size;
         protected Vector2 _position;
         protected Rectangle _source;
-        protected Rectangle _destination;
         protected Rectangle _collision; 
         protected Vector2 _origin;
-        protected Vector2 _centre;
         protected Color _colour;
         protected SpriteEffects _effects;
         protected int _width;
         protected int _height;
         protected int _halfWidth;
         protected int _halfHeight;
-        protected float _rotation;
         protected float _scale;
         protected int _frameNumber;
         private Dictionary<string, Animation> _animations;
@@ -36,7 +33,7 @@ namespace Top_Down_Game
         protected bool _animationComplete;
         protected float _animationSpeed;
         protected Vector2 _velocity;
-        public Sprite(Texture2D texture, Vector2 position, Point size, Dictionary<string, Animation> animations)
+        public Sprite(Texture2D texture, Vector2 position, Dictionary<string, Animation> animations)
         {
             _previousAction = "Idle";
             _currentAction = "Idle"; 
@@ -45,22 +42,19 @@ namespace Top_Down_Game
             _animationComplete = false; 
             _colour = White; 
             _effects = None; 
-            _destination = new Rectangle(size.X, size.Y, size.X, size.Y);
-            _size = size;
+            _size = new Point(100, 55);
             _animationSpeed = 0.50f;
             _frameNumber = 0;
             _animationComplete = false;
             _source = AnimationFrame("Idle", ref _frameNumber);
-            _width = size.X;
-            _height = size.Y;
+            _width = _size.X;
+            _height = _size.Y;
             _halfWidth = _width / 2;
             _halfHeight = _height / 2;
-            _rotation = 0;
             _scale = 1.3f;
             _position = position;
             _collision = new Rectangle((int)_position.X, (int)_position.Y, _width, _height);
-            _origin = new Vector2(_halfWidth, _halfHeight);
-            _centre = new Vector2(_position.X + _halfWidth, _position.Y + _halfHeight);
+            _origin = new Vector2(_halfWidth + 15, _halfHeight + 27);
             _actionComplete = true;
             _busy = false;
         }
@@ -72,7 +66,6 @@ namespace Top_Down_Game
                 _actionComplete = true;
                 SetAction("Idle");
             }
-            _destination.Location = _position.ToPoint();
             if (AnimationTick)
             {
                 _source = AnimationFrame(_currentAction, ref _frameNumber);

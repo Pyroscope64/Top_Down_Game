@@ -9,6 +9,7 @@ using static System.IO.File;
 using static Top_Down_Game.Animation;
 using static Top_Down_Game.InputHandler;
 using static Top_Down_Game.EnemyType;
+using static Top_Down_Game.Tile;
 using static Microsoft.Xna.Framework.Graphics.BlendState;
 using static Microsoft.Xna.Framework.Graphics.SpriteSortMode;
 
@@ -26,7 +27,15 @@ namespace Top_Down_Game
 
         private List<Enemy> _enemies;
 
-        private EnemyType[] enemyTypes = new EnemyType[] { Forest, Mountain, Wetland, Hotland };
+        private EnemyType[] enemyTypes = new EnemyType[]
+        {
+            Forest,
+            Mountain,
+            Wetland,
+            Hotland
+        };
+
+        private bool _bossIsAlive;
         public InPlay(ContentManager content, GraphicsDevice graphicsDevice, Game1 game, Camera camera) : base(content, graphicsDevice, game)
         {
             Dictionary<string, Animation> playerAnimations = CreatePlayerAnimations();
@@ -37,12 +46,12 @@ namespace Top_Down_Game
                 content,
                 graphicsDevice,
                 new Vector2(1000, 1000),
-                new Point(100, 55),
                 playerAnimations,
                 game,
                 _map,
                 _enemies);
             _camera = camera;
+            _bossIsAlive = false;
         }
         private Dictionary<string, Animation> CreatePlayerAnimations()
         {
@@ -79,6 +88,7 @@ namespace Top_Down_Game
                     enemy.Draw(spriteBatch);
                 }
             }
+            if (_bossIsAlive) _enemies[0].Draw(spriteBatch);
         }
 
         public override void Update(GameTime gameTime)
@@ -94,7 +104,7 @@ namespace Top_Down_Game
                 for (int i = 0; i < lines.Length; i++)
                 {
                     int[] location = lines[i].Split(',').ToIntArray();
-                    _enemies.Add(new Enemy(_content, location[0], location[1], enemyTypes[_player.QuestNum], _map.Tiles));
+                    _enemies.Add(new Enemy(_content, location[0] * TILE_SIZE + 50, location[1] * TILE_SIZE + 50, enemyTypes[questNum], _map.Tiles));
                 }
                 for (int i = 0; i < _enemies.Count; i++)
                 {
@@ -107,7 +117,26 @@ namespace Top_Down_Game
                 }
             }
 
-            UpdateEnemies();
+            if (_player.QuestNum == 5 && _player.SpawnBoss)
+            {
+                _player.SpawnBoss = false;
+                if (_enemies.Count == 0)
+                {
+                    _enemies.Add(new Enemy(_content, (int)NPC.Position.X, (int)NPC.Position.Y, Boss, _map.Tiles));
+                    _bossIsAlive = true;
+                }
+            }
+
+            if (_bossIsAlive)
+            {
+                _enemies[0].Update(_player.Collision);
+                if (_enemies[0].CanAttack)
+                {
+                    _player.HP -= _enemies[0].Damage;
+                }
+                if (_enemies[0].Dead) _player.QuestNum++;
+            }
+            else UpdateEnemies();
 
             _camera.Follow(_player.Position);
 
@@ -120,7 +149,11 @@ namespace Top_Down_Game
             {
                 for (int i = 0; i < _enemies.Count; i++)
                 {
-                    _enemies[i].Update((int)_player.Position.X, (int)_player.Position.Y);
+                    _enemies[i].Update(_player.Collision);
+                    if (_enemies[i].CanAttack)
+                    {
+                        _player.HP -= _enemies[i].Damage;
+                    }
                 }
             }
 
