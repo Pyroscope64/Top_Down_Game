@@ -1,13 +1,12 @@
-﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using static System.Math;
-
 namespace Top_Down_Game
 {
     public class Animation
     {
         private List<Rectangle> _sources;
-        private bool _loop;
+        private bool _loop; // Whether or not the animation should start again once complete
         public Animation(List<Rectangle> sources, bool loop)
         {
             _sources = sources;

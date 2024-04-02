@@ -1,11 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using static Top_Down_Game.Game1;
 using static Microsoft.Xna.Framework.Color;
-
+using static Top_Down_Game.Game1;
 namespace Top_Down_Game
 {
     public class MainMenu : GameState
@@ -14,7 +13,6 @@ namespace Top_Down_Game
         private Texture2D _texture; 
         private Rectangle _rectangle; 
         private Vector2 _position;
-
         private Camera _camera;
         public MainMenu(ContentManager contentManager, GraphicsDevice graphicsDevice, Game1 _game) : base(contentManager, graphicsDevice, _game)
         {
@@ -57,11 +55,8 @@ namespace Top_Down_Game
 
             _camera = new Camera(new Point(WINDOW_WIDTH, WINDOW_HEIGHT));
         }
-
         private void QuitButtonClick(object sender, EventArgs e) => _game.Exit(); // Closes the program when the Exit button is clicked
-
         private void PlayButtonClick(object sender, EventArgs e) => _game.ChangeState(new InPlay(_content, _graphicsDevice, _game, _camera)); // Starts a new game
-
         public override void Update(GameTime gameTime)
         {
             foreach (var component in _components)

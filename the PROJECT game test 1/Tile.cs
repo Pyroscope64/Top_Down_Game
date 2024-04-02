@@ -1,23 +1,23 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using static Top_Down_Game.TileType;
-using static Microsoft.Xna.Framework.Color;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using static Microsoft.Xna.Framework.Color;
+using static Top_Down_Game.TileType;
 namespace Top_Down_Game
 {
     internal class Tile
     {
-        public const int TILE_SIZE = 400;
+        public const int TILE_SIZE = 400; // The size of each tile is 400 pixels by 400 pixels
         private Texture2D _texture;
         private Rectangle _rectangle;
         private Vector2 _position;
         private Rectangle _collision;
-        public bool Solid { get; }
+        public bool Solid { get; } // Whether or not the tile is a solid tile (an obstacle)
         public Rectangle Collision => _collision;
-        public TileType TileType { get; }
+        public TileType TileType { get; } // The type of tile, e.g. Tree, Rock
         public Tile(TileType tileType, ContentManager content, int startX, int startY, bool solid)
         {
-            TileType = tileType;
+            TileType = tileType; // Loads the textures for each type of tile
 
             if (TileType == Forest) _texture = content.Load<Texture2D>("TileTextures/grass");
             else if (TileType == Tree) _texture = content.Load<Texture2D>("TileTextures/tree");
@@ -45,10 +45,10 @@ namespace Top_Down_Game
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, _position, _rectangle, White);
+            spriteBatch.Draw(_texture, _position, _rectangle, White); // Draws each tile
         }
     }
-    enum TileType
+    enum TileType // The types of tile that it could be
     {
         Forest,
         Tree,

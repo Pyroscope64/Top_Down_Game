@@ -1,15 +1,12 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
-using System.Net.Mime;
-using static Top_Down_Game.InPlay;
 using static Microsoft.Xna.Framework.Graphics.SpriteEffects;
 using static Microsoft.Xna.Framework.Color;
-
+using static Top_Down_Game.InPlay;
 namespace Top_Down_Game
 {
-    public class Sprite
+    public class Sprite // Class purely used for display
     {
         protected Texture2D _texture;
         protected Point _size;

@@ -1,8 +1,5 @@
 ﻿using static System.Enum;
 using static System.Convert;
-using System.Numerics;
-using System.ComponentModel;
-using Microsoft.Xna.Framework;
 namespace Top_Down_Game
 {
     public static class Utility
@@ -11,7 +8,7 @@ namespace Top_Down_Game
         {
             return (T)Parse(typeof(T), value); // Returns the enum type that matches the string name
         }
-        public static int[] ToIntArray(this string[] array)
+        public static int[] ToIntArray(this string[] array) // Converts a string array to an integer array, used for file reading
         {
             int[] ints = new int[array.Length];
             for (int i = 0; i < array.Length; i++)

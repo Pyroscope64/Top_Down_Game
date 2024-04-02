@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 namespace Top_Down_Game
 {
     public class Game1 : Game
@@ -21,46 +20,38 @@ namespace Top_Down_Game
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
-
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             base.Initialize();
-            Window.Title = "2D RPG Top Down Adventure Game";
-            _graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
+            Window.Title = "2D RPG Top Down Adventure Game"; // Sets the title 
+            _graphics.PreferredBackBufferWidth = WINDOW_WIDTH; // Sets the resolution
             _graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
-            _currentState = new MainMenu(Content, GraphicsDevice, this);
+            _currentState = new MainMenu(Content, GraphicsDevice, this); // Start the game in the main menu
             _graphics.ApplyChanges();
         }
-
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
         }
         protected override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
-
-            if (_nextState != null)
+            if (_nextState != null) // If we have a state to change to
             {
-                _currentState = _nextState;
-                _nextState = null;
+                _currentState = _nextState; // change to that state
+                _nextState = null; // and assume that we do not need to change state yet
             }
 
-            _currentState.Update(gameTime);
+            _currentState.Update(gameTime); // Update the current state
 
             base.Update(gameTime);
         }
-
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(_background);
 
-            // TODO: Add your drawing code here
-
             _spriteBatch.Begin();
 
-            _currentState.Draw(_spriteBatch);
+            _currentState.Draw(_spriteBatch); // Draw the current state to the screen
 
             _spriteBatch.End();
 

@@ -1,7 +1,6 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using static Microsoft.Xna.Framework.Input.ButtonState;
-using Microsoft.Xna.Framework;
-
 namespace Top_Down_Game
 {
     public static class InputHandler
@@ -23,5 +22,4 @@ namespace Top_Down_Game
             _keyboardStatePrevious = _keyboardState;
         } // Gets the mouse state from the last frame
     }
-
 }
