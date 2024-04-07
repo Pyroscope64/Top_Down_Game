@@ -71,7 +71,11 @@ namespace Top_Down_Game
 
             foreach (var tile in _obstacles) // For each solid tile in the map
             {
-                if (tile.Collision.Intersects(_collision)) collision = true; // If the projectile collided with a solid tile, it disappears
+                if (tile.Collision.Intersects(_collision))
+                {
+                    collision = true;
+                    break;
+                } // If the projectile collided with a solid tile, it disappears
             }
 
             if (!collision) // If there has not already been a collision with a solid tile

@@ -46,9 +46,9 @@ namespace Top_Down_Game
             Damage = enemyValues[1];
             _movementSpeed = enemyValues[2];
             _maxAttackCooldown = enemyValues[3];
-            _pathFindCooldown = _maxPathFindCooldown;
             _type = type;
             if (_type != Boss) _maxPathFindCooldown = enemyValues[4];
+            _pathFindCooldown = _maxPathFindCooldown;
             _attackCooldown = _maxAttackCooldown;
 
             if (_type == Forest) file = "forestEnemy"; // Gets the texture for the specific type of enemy

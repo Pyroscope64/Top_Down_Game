@@ -117,7 +117,7 @@ namespace Top_Down_Game
 
             if (_player.QuestNum == 5 && _player.SpawnBoss) // If the boss should spawn in
             {
-                _player.SpawnBoss = false; // We set this to false so that the boss only sspawns once
+                _player.SpawnBoss = false; // We set this to false so that the boss only spawns once
                 if (_enemies.Count == 0) // Prevents the boss from spawning in twice
                 {
                     _enemies.Add(new Enemy(_content, (int)NPC.Position.X, (int)NPC.Position.Y, Boss, _map.Tiles));
